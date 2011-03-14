@@ -240,5 +240,17 @@ class BindsTestCase(unittest.TestCase):
         self.assert_('baz' in metadata.tables)
 
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(BasicAppTestCase))
+    suite.addTest(unittest.makeSuite(BindsTestCase))
+    suite.addTest(unittest.makeSuite(HelperTestCase))
+    suite.addTest(unittest.makeSuite(PaginationTestCase))
+    if flask.signals_available:
+        suite.addTest(unittest.makeSuite(SignallingTestCase))
+    suite.addTest(unittest.makeSuite(TestQueryProperty))
+    return suite
+
+
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(defaultTest='suite')
